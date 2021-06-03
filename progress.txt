@@ -1,0 +1,19 @@
+30/5/21 
+{
+    COMPLETED
+    [+] Adding question to database
+    [+] Getting all questions in one category
+    [+] Getting all questions of one user
+}
+
+2/6/21
+{
+    COMPLETED
+    [+] Adding answer to database
+}
+
+3/6/21
+{
+    [+] Getting answers and displaying in answers page
+    [+] Finished all backend functions
+}
