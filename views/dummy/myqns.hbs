@@ -4,7 +4,8 @@
     {{/if}}
     {{#each questions}}
     <h4>{{this.category}}</h4>
-    <p>{{this.qn_text}}</p> <br>
+    <p>{{this.qn_text}}</p> 
+    <a href="/dummy/answers/{{this.qn_id}}" >Answers</a><br>
      <br>
     {{/each}}
 </div>
