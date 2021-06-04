@@ -54,7 +54,7 @@ module.exports = {
         return new Promise((resolve,reject)=>{
             db.query(sqlQuery,(err,results)=>{
                 // console.log(res);
-              resolve()
+              resolve(results)
             })
         })
      },

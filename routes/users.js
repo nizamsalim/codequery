@@ -89,7 +89,8 @@ router.post('/home',(req,res)=>{
 // dummy
 router.post('/ask-qn',(req,res)=>{
   // console.log(req.body);
-  functionHelper.addQuestion(req.body).then(()=>{
+  functionHelper.addQuestion(req.body).then((response)=>{
+    console.log(response);
     res.redirect('/home/dummy')
  })
 });
@@ -152,9 +153,10 @@ router.get('/dummy/myquestions',(req,res)=>{
 });
 
 router.post('/post-ans',(req,res)=>{
+  let qnId = req.body.qn_id;
   functionHelper.addAnswer(req.body).then((response)=>{
       // console.log(req.body);
-      res.redirect('back')
+      res.redirect('/dummy/answers/'+qnId)
   }).catch((err)=>{
     console.log('Error'+err);
   })
