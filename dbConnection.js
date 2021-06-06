@@ -4,5 +4,5 @@ module.exports = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'nizam123',
-    database:'test2'
+    database:'codequery'
 })

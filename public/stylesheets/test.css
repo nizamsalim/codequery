@@ -475,7 +475,7 @@ top: 80%;
   
 }
 
-.dummy-qn-body{
+.dummy-qn-body , .empty-msg{
   color:white;
 }
 
