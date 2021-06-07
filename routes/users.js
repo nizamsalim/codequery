@@ -168,7 +168,13 @@ router.get('/dummy/answers/:qnId',(req,res)=>{
     console.log(question);
     functionHelper.getAnswers(qnId).then((answers)=>{
       console.log(answers);
-      res.render('dummy/answers',{question,answers})
+      if(answers.length === 0){
+        res.render('dummy/answers',{question,empty_msg:'No answers yet for this question'})
+
+      }else{
+        res.render('dummy/answers',{question,answers})
+      }
+
     })
   })
   
