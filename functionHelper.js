@@ -63,7 +63,7 @@ module.exports = {
          const sqlQuery = `SELECT username,qn_id,qn_text,ans_count FROM users,questions WHERE users.user_id=questions.user_id and questions.category='${category}'`
          return new Promise((resolve,reject)=>{
              db.query(sqlQuery,(err,questions)=>{
-                 console.log(questions);
+                //  console.log(questions);
                 //  console.log(err);
                  if(questions.length!=0){
                      resolve(questions);
