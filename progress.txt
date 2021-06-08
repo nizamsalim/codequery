@@ -22,3 +22,9 @@
 {
     [+] Answers page link for my questions
 }
+
+8/6/21
+{
+    [-] Answer count ()
+    [-] Latest ans on top
+}
