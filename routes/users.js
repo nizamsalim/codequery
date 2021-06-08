@@ -107,6 +107,7 @@ router.get('/home/dummy-qn',verifyLogin,(req,res)=>{
 
 
 router.get('/home/dummy/categories/webdev',(req,res)=>{
+  
   const category = 'web_dev'
   functionHelper.getAllQuestions(category).then((questions)=>{
     res.render('dummy/webdev',{questions,user:req.session.user})
@@ -156,7 +157,7 @@ router.post('/post-ans',(req,res)=>{
   let qnId = req.body.qn_id;
   functionHelper.addAnswer(req.body).then((response)=>{
       // console.log(req.body);
-      res.redirect('back')
+      res.redirect('/dummy/answers/'+qnId)
   }).catch((err)=>{
     console.log('Error'+err);
   })
@@ -167,6 +168,7 @@ router.get('/dummy/answers/:qnId',(req,res)=>{
   functionHelper.getQuestion(qnId).then((question)=>{
     console.log(question);
     functionHelper.getAnswers(qnId).then((answers)=>{
+      answers=answers.reverse();
       console.log(answers);
       if(answers.length === 0){
         res.render('dummy/answers',{question,empty_msg:'No answers yet for this question'})
