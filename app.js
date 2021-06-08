@@ -43,7 +43,7 @@ db.connect(async(err)=>{
         // console.log('tables exist');
       }else{
         const sqlUsersTable =  `CREATE TABLE users(user_id int(255) primary key auto_increment,username varchar(255),email varchar(255),password varchar(255))`;
-        const sqlQuestionsTable =  `CREATE TABLE questions(qn_id int(255) primary key auto_increment,qn_text varchar(255),user_id varchar(255),category varchar(255))`;
+        const sqlQuestionsTable =  `CREATE TABLE questions(qn_id int(255) primary key auto_increment,qn_text varchar(255),user_id varchar(255),category varchar(255),ans_count int(255))`;
         const sqlAnswersTable =  `CREATE TABLE answers(ans_id int(255) primary key auto_increment,ans_text varchar(255),qn_id varchar(255),user_id varchar(255))`;
         await db.query(sqlUsersTable);
         await db.query(sqlQuestionsTable);

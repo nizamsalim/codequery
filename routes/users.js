@@ -156,7 +156,7 @@ router.post('/post-ans',(req,res)=>{
   let qnId = req.body.qn_id;
   functionHelper.addAnswer(req.body).then((response)=>{
       // console.log(req.body);
-      res.redirect('/dummy/answers/'+qnId)
+      res.redirect('back')
   }).catch((err)=>{
     console.log('Error'+err);
   })

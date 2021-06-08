@@ -479,4 +479,14 @@ top: 80%;
   color:white;
 }
 
-
+a{
+  text-decoration: none;
+}
+.dummy-badge{
+  color: #fff;
+  background-color: rgb(48, 47, 47);
+  padding: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 5px;
+}

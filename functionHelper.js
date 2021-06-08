@@ -50,7 +50,7 @@ module.exports = {
      addQuestion:(body)=>{
         //  console.log(body.questionText);
         const {questionText,userId,category} = body;
-        const sqlQuery = `INSERT INTO questions(qn_text,user_id,category) VALUES('${questionText}','${userId}','${category}')`;
+        const sqlQuery = `INSERT INTO questions(qn_text,user_id,category,ans_count) VALUES('${questionText}','${userId}','${category}',0)`;
         return new Promise((resolve,reject)=>{
             db.query(sqlQuery,(err,results)=>{
                 // console.log(res);
@@ -60,10 +60,11 @@ module.exports = {
      },
 
      getAllQuestions:(category)=>{
-         const sqlQuery = `select username,qn_id,qn_text from users,questions where users.user_id=questions.user_id and questions.category='${category}'`
+         const sqlQuery = `SELECT username,qn_id,qn_text,ans_count FROM users,questions WHERE users.user_id=questions.user_id and questions.category='${category}'`
          return new Promise((resolve,reject)=>{
              db.query(sqlQuery,(err,questions)=>{
-                //  console.log(questions);
+                 console.log(questions);
+                //  console.log(err);
                  if(questions.length!=0){
                      resolve(questions);
                  }else{
@@ -90,8 +91,10 @@ module.exports = {
         let user_id = ansBody.user_id;
         let ans_text = ansBody.ans_text;
         const sqlQuery = `INSERT INTO ANSWERS(ans_text,qn_id,user_id) VALUES('${ans_text}','${qn_id}','${user_id}')`
+        const sqlQuery1 = `UPDATE QUESTIONS SET ans_count=ans_count+1 WHERE qn_id=${qn_id}`
         return new Promise((resolve,reject)=>{
-            db.query(sqlQuery,(err,results)=>{
+            db.query(sqlQuery,async(err,results)=>{
+                await db.query(sqlQuery1);
                 if(!err){
                     resolve(results)
                 }else{

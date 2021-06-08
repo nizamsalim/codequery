@@ -8,7 +8,7 @@
     <p>{{this.qn_text}}</p>
     <div style="width:40%;display:flex;justify-content:space-between;height:45px;flex-direction: column;" >
         <div style="display:flex;justify-content: space-between; width:76%;margin-bottom: 5px;" >
-            <a href="/dummy/answers/{{this.qn_id}}" >Answers</a>
+            <a href="/dummy/answers/{{this.qn_id}}" >Answers <span class="dummy-badge bg-secondary"> {{this.ans_count}} </span> </a>
             <button id="showAnswerButton" onclick="showAnswerBox({{this.qn_id}})" >Write Answer</button>
         </div>
         <form action="/post-ans" method="POST" style="display:none;" id="{{this.qn_id}}">
