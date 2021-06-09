@@ -157,7 +157,7 @@ router.post('/post-ans',(req,res)=>{
   let qnId = req.body.qn_id;
   functionHelper.addAnswer(req.body).then((response)=>{
       // console.log(req.body);
-      res.redirect('/dummy/answers/'+qnId)
+      res.redirect('back')
   }).catch((err)=>{
     console.log('Error'+err);
   })
@@ -169,7 +169,7 @@ router.get('/dummy/answers/:qnId',(req,res)=>{
     console.log(question);
     functionHelper.getAnswers(qnId).then((answers)=>{
       answers=answers.reverse();
-      console.log(answers);
+      // console.log(answers);
       if(answers.length === 0){
         res.render('dummy/answers',{question,empty_msg:'No answers yet for this question'})
 
