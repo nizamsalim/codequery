@@ -1,7 +1,7 @@
 var db = require('./dbConnection');
 var bcrypt = require('bcrypt');
 var loadingSpinner = require('loading-spinner');
-
+var date = new Date();
 
 module.exports = {
      doSignup:async(inputData)=>{
@@ -50,7 +50,8 @@ module.exports = {
      addQuestion:(body)=>{
         //  console.log(body.questionText);
         const {questionText,userId,category} = body;
-        const sqlQuery = `INSERT INTO questions(qn_text,user_id,category,ans_count) VALUES('${questionText}','${userId}','${category}',0)`;
+        let qn_date = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()
+        const sqlQuery = `INSERT INTO questions(qn_text,user_id,category,ans_count,qn_date) VALUES('${questionText}','${userId}','${category}',0,'${qn_date}')`;
         return new Promise((resolve,reject)=>{
             db.query(sqlQuery,(err,results)=>{
                 // console.log(res);
@@ -60,13 +61,13 @@ module.exports = {
      },
 
      getAllQuestions:(category)=>{
-         const sqlQuery = `SELECT username,qn_id,qn_text,ans_count FROM users,questions WHERE users.user_id=questions.user_id and questions.category='${category}'`
+         const sqlQuery = `SELECT username,qn_id,qn_text,ans_count,qn_date FROM users,questions WHERE users.user_id=questions.user_id and questions.category='${category}'`
          return new Promise((resolve,reject)=>{
              db.query(sqlQuery,(err,questions)=>{
                 //  console.log(questions);
                 //  console.log(err);
                  if(questions.length!=0){
-                     resolve(questions);
+                     resolve(questions.reverse());
                  }else{
                      reject('No questions in this section. Be the first person to ask one.')
                  }
@@ -90,7 +91,8 @@ module.exports = {
         let qn_id = ansBody.qn_id;
         let user_id = ansBody.user_id;
         let ans_text = ansBody.ans_text;
-        const sqlQuery = `INSERT INTO ANSWERS(ans_text,qn_id,user_id) VALUES('${ans_text}','${qn_id}','${user_id}')`
+        let ans_date = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()
+        const sqlQuery = `INSERT INTO ANSWERS(ans_text,qn_id,user_id,ans_date) VALUES('${ans_text}','${qn_id}','${user_id}','${ans_date}')`
         const sqlQuery1 = `UPDATE QUESTIONS SET ans_count=ans_count+1 WHERE qn_id=${qn_id}`
         return new Promise((resolve,reject)=>{
             db.query(sqlQuery,async(err,results)=>{
@@ -105,7 +107,7 @@ module.exports = {
     },
 
     getAnswers:(qnId)=>{
-        const sqlQuery = `SELECT ans_text,username,qn_text FROM answers,users,questions WHERE answers.qn_id=${qnId} and users.user_id=answers.user_id and questions.qn_id=answers.qn_id`;
+        const sqlQuery = `SELECT ans_text,ans_date,username,qn_text FROM answers,users,questions WHERE answers.qn_id=${qnId} and users.user_id=answers.user_id and questions.qn_id=answers.qn_id`;
         return new Promise((resolve,reject)=>{
             db.query(sqlQuery,(err,results)=>{
                 if(!err){
@@ -117,7 +119,7 @@ module.exports = {
         })    
     },
     getQuestion:(qnId)=>{
-        const sqlQuery = `SELECT qn_text FROM questions WHERE qn_id=${qnId}`;
+        const sqlQuery = `SELECT qn_text,qn_date FROM questions WHERE qn_id=${qnId}`;
         return new Promise((resolve,reject)=>{
             db.query(sqlQuery,(err,results)=>{
                 if(!err){
