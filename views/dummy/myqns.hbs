@@ -5,7 +5,7 @@
     {{#each questions}}
     <h4>{{this.category}}</h4>
     <p>{{this.qn_text}}</p> 
-    <a href="/dummy/answers/{{this.qn_id}}" >Answers</a><br>
+    <a href="/dummy/answers/{{this.qn_id}}" >Answers</a><span class="dummy-badge bg-secondary"> {{this.ans_count}} </span> </a><br>
      <br>
     {{/each}}
 </div>
